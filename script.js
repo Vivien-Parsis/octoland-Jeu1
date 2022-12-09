@@ -1,12 +1,15 @@
 const decalageX = 100;
 const decalageY = 100;
+
+//mettre des multiple de decalageX/Y !
 const hauteur = 600;
-const largeur = 1300;
+const largeur = 600;
+
 const timeMax = 20;
 let numbOcto = 0;
 let timeCount = timeMax;
 let highScore = 0;
-let keyImageOcto = ['OctoCyan','OctoJaune','OctoBleu','OctoVert','OctoViolet','OctoRose'];
+let keyImageOcto = ['OctoJaune','OctoBleu','OctoViolet','OctoRose','OctoOrange'];
 let couleurOcto;
 
 function preload()
@@ -28,7 +31,7 @@ function create()
 
   this.timer = this.time.delayedCall(1000,null,null,this);
   
-  console.log(this.scoreTest);
+  //console.log(this.scoreTest);
   numbOcto = ((largeur-1*decalageX)/decalageX)*((hauteur-1*decalageY)/decalageY);
   
   
@@ -40,8 +43,8 @@ function create()
   {
     for(let x = decalageX; x<config.width; x+=decalageX)
     {
-      let rDX = RandInt(0,11);
-      let rDY = RandInt(0,11);
+      let rDX = RandInt(0,largeur/decalageX);
+      let rDY = RandInt(0,hauteur/decalageY);
       if(currentid==this.idJosiane)
       {this.octoList.push(this.physics.add.image(x+rDX,y+rDY,'josiane').setScale(0.05,0.05));}
       else
@@ -52,7 +55,7 @@ function create()
       currentid+=1;
     }
   }
-  console.log(currentid+"/"+numbOcto);
+  //console.log(currentid+"/"+numbOcto);
   const text = "Score: "+this.score+'\nTimer: '+timeCount+'s\nMeilleur score: '+ highScore;
   this.scoreTest = this.add.text(0,0,text,{fontfamily:"arial",fill:'#dddddd',stroke:'#000000',strokeThickness:3});
 }
@@ -97,8 +100,8 @@ function update()
     {
       for(let x = decalageX; x<config.width; x+=decalageX)
       {
-        let rDX = RandInt(0,11);
-        let rDY = RandInt(0,11);
+        let rDX = RandInt(0,largeur/decalageX);
+        let rDY = RandInt(0,hauteur/decalageY);
         if(currentid==this.idJosiane)
         {this.octoList.push(this.physics.add.image(x+rDX,y+rDY,'josiane').setScale(0.05,0.05));}
         else
@@ -137,8 +140,8 @@ function update()
     {
       for(let x = decalageX; x<config.width; x+=decalageX)
       {
-        let rDX = RandInt(0,11);
-        let rDY = RandInt(0,11);
+        let rDX = RandInt(0,largeur/decalageX);
+        let rDY = RandInt(0,hauteur/decalageY);
         if(currentid==this.idJosiane)
         {this.octoList.push(this.physics.add.image(x+rDX,y+rDY,'josiane').setScale(0.05,0.05));}
         else
