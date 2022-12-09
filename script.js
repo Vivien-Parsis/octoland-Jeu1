@@ -6,14 +6,21 @@ const timeMax = 20;
 let numbOcto = 0;
 let timeCount = timeMax;
 let highScore = 0;
+let keyImageOcto = ['OctoCyan','OctoJaune','OctoBleu','OctoVert','OctoViolet','OctoRose'];
+let couleurOcto;
 
-function preload() {
-  this.load.image('octo', 'assets/image/octo.png');
+function preload()
+{
   this.load.image('fond', 'assets/image/fond.jpg');
   this.load.image('josiane', 'assets/image/josiane.png');
+  for(let i = 0; i<keyImageOcto.length; i++)
+  {
+    this.load.image(keyImageOcto[i],'assets/image/'+keyImageOcto[i]+'.png');   
+  }
 }
 
-function create() {
+function create()
+{
   this.score = 0;
   this.pause = false;
   this.r = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
@@ -40,7 +47,8 @@ function create() {
       }
       else
       {
-        this.octoList.push(this.physics.add.image(x,y,'octo').setScale(0.05,0.05));
+        couleurOcto = keyImageOcto[RandInt(0,keyImageOcto.length)];
+        this.octoList.push(this.physics.add.image(x,y,couleurOcto).setScale(0.05,0.05));
       }
       currentid+=1;
     }
@@ -50,8 +58,8 @@ function create() {
   this.scoreTest = this.add.text(0,0,text,{fontfamily:"arial",fill:'#dddddd',stroke:'#000000',strokeThickness:5});
 }
 
-function update() {
-  
+function update()
+{
   var pointer = this.input.activePointer;
   const text = "Score: "+this.score+'\nTimer: '+timeCount+'s\nHigh score: '+ highScore;
   this.scoreTest.setText(text);
@@ -78,7 +86,7 @@ function update() {
     
   }
   
-  if(this.pause && this.r.isDown)
+  if(this.pause && (this.r.isDown || pointer.isDown))
   {
     this.scoreTest.setPosition(0,0).setAlign('left');
     this.score=0;
@@ -96,7 +104,9 @@ function update() {
         }
         else
         {
-          this.octoList.push(this.physics.add.image(x,y,'octo').setScale(0.05,0.05));
+          couleurOcto = keyImageOcto[RandInt(0,keyImageOcto.length)];
+          
+          this.octoList.push(this.physics.add.image(x,y,couleurOcto).setScale(0.05,0.05));
         }
         currentid+=1;
       }
@@ -137,7 +147,9 @@ function update() {
         }
         else
         {
-          this.octoList.push(this.physics.add.image(x,y,'octo').setScale(0.05,0.05));
+          couleurOcto = keyImageOcto[RandInt(0,keyImageOcto.length)];
+          
+          this.octoList.push(this.physics.add.image(x,y,couleurOcto).setScale(0.05,0.05));
         }
         currentid+=1;
       }
