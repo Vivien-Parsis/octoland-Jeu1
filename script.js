@@ -40,28 +40,27 @@ function create()
   {
     for(let x = decalageX; x<config.width; x+=decalageX)
     {
-      
+      let rDX = RandInt(0,11);
+      let rDY = RandInt(0,11);
       if(currentid==this.idJosiane)
-      {
-        this.octoList.push(this.physics.add.image(x,y,'josiane').setScale(0.05,0.05));
-      }
+      {this.octoList.push(this.physics.add.image(x+rDX,y+rDY,'josiane').setScale(0.05,0.05));}
       else
       {
         couleurOcto = keyImageOcto[RandInt(0,keyImageOcto.length)];
-        this.octoList.push(this.physics.add.image(x,y,couleurOcto).setScale(0.05,0.05));
+        this.octoList.push(this.physics.add.image(x+rDX,y+rDY,couleurOcto).setScale(0.05,0.05));
       }
       currentid+=1;
     }
   }
   console.log(currentid+"/"+numbOcto);
-  const text = "Score: "+this.score+'\nTimer: '+timeCount+'s\nHigh score: '+ highScore;
-  this.scoreTest = this.add.text(0,0,text,{fontfamily:"arial",fill:'#dddddd',stroke:'#000000',strokeThickness:5});
+  const text = "Score: "+this.score+'\nTimer: '+timeCount+'s\nMeilleur score: '+ highScore;
+  this.scoreTest = this.add.text(0,0,text,{fontfamily:"arial",fill:'#dddddd',stroke:'#000000',strokeThickness:3});
 }
 
 function update()
 {
   var pointer = this.input.activePointer;
-  const text = "Score: "+this.score+'\nTimer: '+timeCount+'s\nHigh score: '+ highScore;
+  const text = "Score: "+this.score+'\nTimer: '+timeCount+'s\nMeilleur score: '+ highScore;
   this.scoreTest.setText(text);
   if(this.timer.getProgress()==1 && this.pause == false)
   {
@@ -73,15 +72,13 @@ function update()
   {
     this.pause = true;
     if(this.score>highScore)
-    {
-      highScore = this.score;
-    }
+    {highScore = this.score;}
+    
     for(let i = 0; i < this.octoList.length; i++)
-    {
-       this.octoList[i].destroy();   
-    }
+    {this.octoList[i].destroy();}
     this.octoList = [];
-    const text = "Score: "+this.score+'\nTimer: '+timeCount+'s\nHigh score: '+ highScore+'\n\nPresser R pour redémarrer !';
+    
+    const text = "Score: "+this.score+'\nMeilleur score: '+ highScore+'\n\nPresser R pour redémarrer !';
     this.scoreTest.setText(text);
     this.scoreTest.setPosition((config.width/2)-(this.scoreTest.displayWidth/2),(config.height/2)-(this.scoreTest.displayHeight/2)).setAlign('center').setScale(1.5,1.5);
     
@@ -100,15 +97,14 @@ function update()
     {
       for(let x = decalageX; x<config.width; x+=decalageX)
       {
+        let rDX = RandInt(0,11);
+        let rDY = RandInt(0,11);
         if(currentid==this.idJosiane)
-        {
-          this.octoList.push(this.physics.add.image(x,y,'josiane').setScale(0.05,0.05));
-        }
+        {this.octoList.push(this.physics.add.image(x+rDX,y+rDY,'josiane').setScale(0.05,0.05));}
         else
         {
           couleurOcto = keyImageOcto[RandInt(0,keyImageOcto.length)];
-          
-          this.octoList.push(this.physics.add.image(x,y,couleurOcto).setScale(0.05,0.05));
+          this.octoList.push(this.physics.add.image(x+rDX,y+rDY,couleurOcto).setScale(0.05,0.05));
         }
         currentid+=1;
       }
@@ -128,13 +124,11 @@ function update()
       this.score=0;
       timeCount=timeMax;
     }
-    const text = "Score: "+this.score+'\nTimer: '+timeCount+'s\nHigh score: '+ highScore;
+    const text = "Score: "+this.score+'\nTimer: '+timeCount+'s\nMeilleur score: '+ highScore;
     this.scoreTest.setText(text);
     
     for(let i = 0; i < this.octoList.length; i++)
-    {
-       this.octoList[i].destroy();   
-    }
+    {this.octoList[i].destroy();}
     this.octoList = [];
     
     this.idJosiane = RandInt(0,numbOcto);
@@ -143,15 +137,14 @@ function update()
     {
       for(let x = decalageX; x<config.width; x+=decalageX)
       {
+        let rDX = RandInt(0,11);
+        let rDY = RandInt(0,11);
         if(currentid==this.idJosiane)
-        {
-          this.octoList.push(this.physics.add.image(x,y,'josiane').setScale(0.05,0.05));
-        }
+        {this.octoList.push(this.physics.add.image(x+rDX,y+rDY,'josiane').setScale(0.05,0.05));}
         else
         {
           couleurOcto = keyImageOcto[RandInt(0,keyImageOcto.length)];
-          
-          this.octoList.push(this.physics.add.image(x,y,couleurOcto).setScale(0.05,0.05));
+          this.octoList.push(this.physics.add.image(x+rDX,y+rDY,couleurOcto).setScale(0.05,0.05));
         }
         currentid+=1;
       }
