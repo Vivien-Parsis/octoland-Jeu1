@@ -81,14 +81,16 @@ function update()
        this.octoList[i].destroy();   
     }
     this.octoList = [];
-    this.scoreTest.setPosition((config.width/2)-(this.scoreTest.displayWidth/2),(config.height/2)-(this.scoreTest.displayHeight/2)).setAlign('center');
+    const text = "Score: "+this.score+'\nTimer: '+timeCount+'s\nHigh score: '+ highScore+'\n\nPresser R pour redémarrer !';
+    this.scoreTest.setText(text);
+    this.scoreTest.setPosition((config.width/2)-(this.scoreTest.displayWidth/2),(config.height/2)-(this.scoreTest.displayHeight/2)).setAlign('center').setScale(1.5,1.5);
     
     
   }
   
-  if(this.pause && (this.r.isDown || pointer.isDown))
+  if(this.pause && this.r.isDown)
   {
-    this.scoreTest.setPosition(0,0).setAlign('left');
+    this.scoreTest.setPosition(0,0).setAlign('left').setScale(1,1);
     this.score=0;
     timeCount=timeMax;
     this.pause = false;
