@@ -9,6 +9,7 @@ const timeMax = 20;
 let numbOcto = 0;
 let timeCount = timeMax;
 let highScore = 0;
+//liste nom des images utilisés p 
 let keyImageOcto = ['OctoJaune','OctoBleu','OctoViolet','OctoRose','OctoOrange'];
 let couleurOcto;
 
@@ -20,6 +21,10 @@ function preload()
   {
     this.load.image(keyImageOcto[i],'assets/image/'+keyImageOcto[i]+'.png');   
   }
+
+  this.load.audio('correct','assets/sound/correct.mp3');
+  this.load.audio('win','assets/sound/win.mp3');
+  this.load.audio('fail','assets/sound/fail.mp3');
 }
 
 function create()
@@ -43,8 +48,8 @@ function create()
   {
     for(let x = decalageX; x<config.width; x+=decalageX)
     {
-      let rDX = RandInt(0,largeur/decalageX);
-      let rDY = RandInt(0,hauteur/decalageY);
+      let rDX = RandInt(0,2*largeur/decalageX);
+      let rDY = RandInt(0,2*hauteur/decalageY);
       if(currentid==this.idJosiane)
       {this.octoList.push(this.physics.add.image(x+rDX,y+rDY,'josiane').setScale(0.05,0.05));}
       else
@@ -71,7 +76,7 @@ function update()
     timeCount -= 1;
   }
 
-  if(timeCount == 0)
+  if(timeCount == 0 && this.pause == false)
   {
     this.pause = true;
     if(this.score>highScore)
@@ -80,6 +85,11 @@ function update()
     for(let i = 0; i < this.octoList.length; i++)
     {this.octoList[i].destroy();}
     this.octoList = [];
+    
+    if(this.score>0)
+    {this.sound.play('win',{volume:1});}
+    else
+    {this.sound.play('fail',{volume:1});}
     
     const text = "Score: "+this.score+'\nMeilleur score: '+ highScore+'\n\nPresser R pour redémarrer !';
     this.scoreTest.setText(text);
@@ -100,8 +110,8 @@ function update()
     {
       for(let x = decalageX; x<config.width; x+=decalageX)
       {
-        let rDX = RandInt(0,largeur/decalageX);
-        let rDY = RandInt(0,hauteur/decalageY);
+        let rDX = RandInt(0,2*largeur/decalageX);
+        let rDY = RandInt(0,2*hauteur/decalageY);
         if(currentid==this.idJosiane)
         {this.octoList.push(this.physics.add.image(x+rDX,y+rDY,'josiane').setScale(0.05,0.05));}
         else
@@ -121,7 +131,10 @@ function update()
       && pointer.y < this.octoList[this.idJosiane].y+(this.octoList[this.idJosiane].displayHeight/2)))
   {
     if(pointer.isDown)
-    {this.score+=1;}
+    {
+      this.score+=1;
+      this.sound.play('correct',{volume:0.7});
+    }
     if(this.r.isDown)
     {
       this.score=0;
@@ -140,8 +153,8 @@ function update()
     {
       for(let x = decalageX; x<config.width; x+=decalageX)
       {
-        let rDX = RandInt(0,largeur/decalageX);
-        let rDY = RandInt(0,hauteur/decalageY);
+        let rDX = RandInt(0,2*largeur/decalageX);
+        let rDY = RandInt(0,2*hauteur/decalageY);
         if(currentid==this.idJosiane)
         {this.octoList.push(this.physics.add.image(x+rDX,y+rDY,'josiane').setScale(0.05,0.05));}
         else
