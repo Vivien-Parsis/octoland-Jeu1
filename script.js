@@ -25,10 +25,22 @@ function preload()
   this.load.audio('correct','assets/sound/correct.mp3');
   this.load.audio('win','assets/sound/win.mp3');
   this.load.audio('fail','assets/sound/fail.mp3');
+  this.load.audio('musicBG', 'assets/sound/musicBG.mp3');
 }
 
 function create()
 {
+  var music = this.sound.add('musicBG',
+  {
+    mute: false,
+    volume: 1,
+    rate: 1,
+    detune: 0,
+    seek: 0,
+    loop: true,
+    delay: 1
+  });
+  music.play();
   this.score = 0;
   this.pause = false;
   this.r = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
@@ -68,8 +80,11 @@ function create()
 function update()
 {
   var pointer = this.input.activePointer;
-  const text = "Score: "+this.score+'\nTimer: '+timeCount+'s\nMeilleur score: '+ highScore;
-  this.scoreTest.setText(text);
+  if(this.pause == false)
+  {
+    const text = "Score: "+this.score+'\nTimer: '+timeCount+'s\nMeilleur score: '+ highScore;
+    this.scoreTest.setText(text);
+  }
   if(this.timer.getProgress()==1 && this.pause == false)
   {
     this.timer = this.time.delayedCall(1000,null,null,this);
@@ -93,7 +108,9 @@ function update()
     
     const text = "Score: "+this.score+'\nMeilleur score: '+ highScore+'\n\nPresser R pour redémarrer !';
     this.scoreTest.setText(text);
-    this.scoreTest.setPosition((config.width/2)-(this.scoreTest.displayWidth/2),(config.height/2)-(this.scoreTest.displayHeight/2)).setAlign('center').setScale(1.5,1.5);
+    
+    this.scoreTest.setAlign('center').setScale(1.5,1.5);
+    this.scoreTest.setPosition((config.width/2)-(this.scoreTest.displayWidth/2),(config.height/2)-(this.scoreTest.displayHeight/2));
     
     
   }
@@ -133,7 +150,7 @@ function update()
     if(pointer.isDown)
     {
       this.score+=1;
-      this.sound.play('correct',{volume:0.7});
+      this.sound.play('correct',{volume:0.2});
     }
     if(this.r.isDown)
     {
